@@ -2,27 +2,27 @@ Rails.application.routes.draw do
   # RESTful Resources
   resources :courses do
     member do
-      get :restore
+      post :restore
     end
   end
   resources :lessons do
     member do
-      get :restore
+      post :restore
     end
   end
   resources :quizzes do
     member do
-      get :restore
+      post :restore
     end
   end
   resources :enrollments do
     member do
-      get :restore
+      post :restore
     end
   end
   resources :profiles do
     member do
-      get :restore
+      post :restore
     end
   end
 

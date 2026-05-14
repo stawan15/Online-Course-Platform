@@ -6,6 +6,8 @@ class Ability
 
     if user.has_role? :admin
       can :manage, :all
+      # Allow restoring courses
+      can :restore, Course if user.has_role?(:admin)
     else
       # ปรับปรุงสิทธิ์พื้นฐานให้สะอาดขึ้น
       can :read, [Course, Lesson, Quiz, User, Profile, Enrollment]

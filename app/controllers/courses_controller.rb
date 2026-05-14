@@ -44,8 +44,11 @@ class CoursesController < ApplicationController
   end
 
   def restore
+    Rails.logger.debug { "Attempting to restore course with ID: #{params[:id]}" }
     @course = Course.only_deleted.find(params[:id])
+    Rails.logger.debug { "Course found: #{@course.inspect}" }
     authorize! :restore, @course
+    Rails.logger.debug { "Authorization passed for restore action." }
     @course.restore
     redirect_to courses_path, notice: "กู้คืนคอร์สเรียบร้อยแล้ว"
   end
