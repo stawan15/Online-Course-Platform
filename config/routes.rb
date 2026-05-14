@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get "enrollments/index"
+  get "quizzes/index"
+  get "lessons/index"
+  get "lessons/show"
+  get "courses/index"
+  get "courses/show"
+  get "courses/new"
+  get "courses/edit"
+  get "home/index"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
