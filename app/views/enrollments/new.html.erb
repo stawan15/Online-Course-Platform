@@ -1,7 +1,24 @@
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6">
+  <div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 sm:p-12">
+      <div class="mb-10 text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-emerald-100 transform -rotate-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <h1 class="text-3xl font-black text-slate-900 mb-2">เพิ่มการลงทะเบียน</h1>
+        <p class="text-slate-500 text-base">กำหนดนักเรียนเข้าสู่คอร์สเรียน</p>
+      </div>
+
+      <%= render "form", enrollment: @enrollment %>
+
+      <div class="mt-8 text-center border-t border-slate-100 pt-8">
+        <%= link_to enrollments_path, class: "inline-flex items-center text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          กลับไปหน้ารายการ
+          กลับไปหน้ารวมการลงทะเบียน
         <% end %>
       </div>
     </div>
