@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_14_042409) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_14_081735) do
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
@@ -57,6 +57,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_042409) do
     t.integer "user_id"
     t.index ["deleted_at"], name: "index_profiles_on_deleted_at"
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "quiz_submissions", force: :cascade do |t|
+    t.text "answer"
+    t.datetime "created_at", null: false
+    t.integer "quiz_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["quiz_id"], name: "index_quiz_submissions_on_quiz_id"
+    t.index ["user_id"], name: "index_quiz_submissions_on_user_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
@@ -121,5 +131,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_042409) do
   add_foreign_key "enrollments", "users"
   add_foreign_key "lessons", "courses"
   add_foreign_key "profiles", "users"
+  add_foreign_key "quiz_submissions", "quizzes"
+  add_foreign_key "quiz_submissions", "users"
   add_foreign_key "quizzes", "lessons"
 end

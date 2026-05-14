@@ -11,10 +11,10 @@ class Ability
     else
         # ปรับปรุงสิทธิ์พื้นฐานให้สะอาดขึ้น
         can :read, [ Course, Lesson, Quiz, User, Profile, Enrollment ]
-        # สามารถแก้ไข Profile ของตัวเองได้
+        # สามารถจัดการ Profile ของตัวเองได้
         can :manage, Profile, user_id: user.id
-      # สามารถดู Enrollment ของตัวเองได้
-      can :read, Enrollment, user_id: user.id
+        # สามารถจัดการ Enrollment ของตัวเองได้ (เปลี่ยนคอร์ส/ยกเลิก)
+        can :manage, Enrollment, user_id: user.id
     end
   end
 end

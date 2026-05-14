@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :quizzes do
     member do
       post :restore
+      patch :submit_answer
     end
   end
   resources :enrollments do

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :taught_courses, class_name: "Course", foreign_key: "user_id"
   has_many :taught_lessons, through: :taught_courses, source: :lessons
   has_many :taught_quizzes, through: :taught_lessons, source: :quizzes
+  has_many :quiz_submissions, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
