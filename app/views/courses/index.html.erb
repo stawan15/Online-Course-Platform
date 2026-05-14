@@ -1,20 +1,116 @@
-<h1>คอร์สเรียนทั้งหมด</h1>
-<ul>
-  <% @courses.each do |course| %>
-    <li><%= link_to course.title, course_path(course) %></li>
-    <li><%= link_to "แก้ไข", edit_course_path(course) %></li>
-    <%if can? :delete, course %>
-      <%= button_to "ลบ", course_path(course), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg transition cursor-pointer" %>
+<div class="min-h-screen bg-slate-50 py-8 px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+      <div>
+        <h1 class="text-2xl font-black text-slate-900 tracking-tight">คอร์สเรียนทั้งหมด</h1>
+        <p class="text-slate-500 text-sm">จัดการและดูแลคอร์สเรียนของคุณ</p>
+      </div>
+      <%= link_to new_course_path, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all duration-200 active:scale-95 group" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-1.5 group-hover:rotate-90 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        สร้างคอร์สใหม่
+      <% end %>
+    </div>
+
+    <!-- Active Courses Grid -->
+    <% if @courses.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <% @courses.each do |course| %>
+          <div class="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full hover:-translate-y-0.5">
+            <div class="p-6 flex-grow">
+              <div class="flex justify-between items-start mb-3">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-100 text-indigo-700 uppercase tracking-wider border border-indigo-200">
+                  Active
+                </span>
+                <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <%= link_to edit_course_path(course), class: "p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  <% end %>
+                  <% if can? :destroy, course %>
+                    <%= button_to course_path(course), method: :delete, data: { turbo_confirm: "ต้องการย้ายคอร์สนี้ไปที่ถังขยะใช่หรือไม่?" }, class: "p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <h2 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-1"><%= course.title %></h2>
+              <p class="text-slate-500 text-xs leading-relaxed line-clamp-2 mb-4">
+                <%= course.description.presence || "ไม่มีคำอธิบายสำหรับคอร์สนี้" %>
+              </p>
+            </div>
+            <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-50 mt-auto">
+              <%= link_to course_path(course), class: "flex items-center justify-between group/link text-indigo-600 text-sm font-bold" do %>
+                <span>จัดการคอร์สเรียน</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="h-3.5 w-3.5 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-16 bg-white rounded-2xl border-2 border-dashed border-slate-200 mb-8">
+        <div class="bg-indigo-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-1">ยังไม่มีคอร์สเรียน</h3>
+        <p class="text-slate-500 text-sm mb-6">เริ่มต้นสร้างคอร์สเรียนแรกของคุณ</p>
+        <%= link_to "สร้างคอร์สใหม่", new_course_path, class: "text-indigo-600 text-sm font-bold hover:text-indigo-700 underline underline-offset-4" %>
+      </div>
     <% end %>
-  <% end %>
-</ul>
 
-<%= link_to "สร้างคอร์สใหม่", new_course_path %>
-
-<h1>คอร์สที่ถูกลบ (Trash)</h1>
-<ul>
-  <% @deleted_courses.each do |course| %>
-    <li><%= link_to course.title, course_path(course) %></li>
-    <li><%= link_to "กู้คืน", restore_course_path(course), method: :post, class: "text-green-600 hover:text-green-800" %></li>
-  <% end %>
-</ul>   
+    <!-- Trash Section -->
+    <div class="clear-both pt-8"></div>
+    <% if @deleted_courses.any? %>
+      <div class="mt-16 block">
+        <div class="flex items-center space-x-2 mb-6">
+          <div class="bg-slate-200 p-1.5 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </div>
+          <h2 class="text-xl font-bold text-slate-700 leading-none">คอร์สที่ถูกลบ (Trash)</h2>
+        </div>
+        
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                  <th class="px-6 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">ชื่อคอร์ส</th>
+                  <th class="px-6 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-right">การจัดการ</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-50">
+                <% @deleted_courses.each do |course| %>
+                  <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-3">
+                      <span class="text-sm font-semibold text-slate-700"><%= course.title %></span>
+                    </td>
+                    <td class="px-6 py-3 text-right">
+                      <%= button_to restore_course_path(course), method: :post, class: "inline-flex items-center text-xs font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-all cursor-pointer" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        กู้คืน
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

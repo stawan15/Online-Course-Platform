@@ -19,31 +19,33 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <header class="navbar">
-      <div class="nav-container">
-        <%= link_to root_path, class: "brand" do %>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
-            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          OCP
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
+      <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 h-16 flex justify-between items-center">
+        <%= link_to root_path, class: "text-xl font-bold text-indigo-600 flex items-center gap-2 group" do %>
+          <div class="p-1.5 bg-indigo-50 rounded-lg group-hover:bg-indigo-100 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="tracking-tight">OCP</span>
         <% end %>
 
-        <nav class="nav-links">
-          <%= link_to "คอร์สทั้งหมด", courses_path, class: "nav-link" %>
-          <%= link_to "บทเรียน", lessons_path, class: "nav-link" %>
+        <nav class="flex gap-4 sm:gap-6 items-center">
+          <%= link_to "คอร์สทั้งหมด", courses_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors" %>
+          <%= link_to "บทเรียน", lessons_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors" %>
           <% if user_signed_in? %>
-            <%= link_to "ข้อมูลส่วนตัว", profile_path(current_user.profile || "#"), class: "nav-link" if current_user.profile %>
-            <%= button_to "ออกจากระบบ", destroy_user_session_path, method: :delete, class: "btn btn-outline" %>
+            <%= link_to "ข้อมูลส่วนตัว", profile_path(current_user.profile || "#"), class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors" if current_user.profile %>
+            <%= button_to "ออกจากระบบ", destroy_user_session_path, method: :delete, class: "inline-flex items-center justify-center px-4 py-2 border border-slate-200 text-sm font-bold rounded-xl text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer" %>
           <% else %>
-            <%= link_to "เข้าสู่ระบบ", new_user_session_path, class: "nav-link" %>
-            <%= link_to "สมัครสมาชิก", new_user_registration_path, class: "btn btn-primary" %>
+            <%= link_to "เข้าสู่ระบบ", new_user_session_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors" %>
+            <%= link_to "สมัครสมาชิก", new_user_registration_path, class: "inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-sm font-bold rounded-xl text-white shadow-lg shadow-indigo-100 transition-all" %>
           <% end %>
         </nav>
       </div>

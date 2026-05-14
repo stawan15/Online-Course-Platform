@@ -1,26 +1,21 @@
-<h1>สร้างคอร์สใหม่</h1>
+<div class="min-h-screen bg-slate-50 py-8 px-4 sm:px-6">
+  <div class="max-w-lg mx-auto">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-10">
+      <div class="mb-8 text-center">
+        <h1 class="text-2xl font-black text-slate-900 mb-1">สร้างคอร์สใหม่</h1>
+        <p class="text-slate-500 text-sm">เริ่มต้นสร้างประสบการณ์การเรียนรู้</p>
+      </div>
 
-<%= form_with(model: @course) do |form| %>
-  <% if @course.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 p-4 mb-4 rounded-lg text-red-700">
-      <h2>ไม่สามารถบันทึกได้เนื่องจาก:</h2>
-      <ul>
-        <% @course.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+      <%= render "form", course: @course %>
+
+      <div class="mt-6 text-center border-t border-slate-50 pt-6">
+        <%= link_to courses_path, class: "inline-flex items-center text-xs font-bold text-slate-400 hover:text-indigo-600 transition-colors" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          กลับไปหน้ารายการ
         <% end %>
-      </ul>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
   </div>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<% end%>
+</div>
