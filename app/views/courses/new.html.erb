@@ -1,3 +1,26 @@
 <h1>สร้างคอร์สใหม่</h1>
 
-<%= render "form" %>
+<%= form_with(model: @course) do |form| %>
+  <% if @course.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 p-4 mb-4 rounded-lg text-red-700">
+      <h2>ไม่สามารถบันทึกได้เนื่องจาก:</h2>
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end%>

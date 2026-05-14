@@ -21,9 +21,9 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new(course_params)
+    @course = current_user.taught_courses.build(course_params)
     if @course.save
-      redirect_to @course
+      redirect_to @course, notice: "สร้างคอร์สเรียบร้อยแล้ว"
     else
       render :new, status: :unprocessable_entity
     end
