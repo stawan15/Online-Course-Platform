@@ -9,12 +9,10 @@ class Ability
       # Allow restoring courses
       can :restore, Course if user.has_role?(:admin)
     else
-      # ปรับปรุงสิทธิ์พื้นฐานให้สะอาดขึ้น
-      can :read, [Course, Lesson, Quiz, User, Profile, Enrollment]
-      
-      # สามารถแก้ไข Profile ของตัวเองได้
-      can :manage, Profile, user_id: user.id
-      
+        # ปรับปรุงสิทธิ์พื้นฐานให้สะอาดขึ้น
+        can :read, [ Course, Lesson, Quiz, User, Profile, Enrollment ]
+        # สามารถแก้ไข Profile ของตัวเองได้
+        can :manage, Profile, user_id: user.id
       # สามารถดู Enrollment ของตัวเองได้
       can :read, Enrollment, user_id: user.id
     end

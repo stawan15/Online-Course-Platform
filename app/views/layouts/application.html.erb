@@ -42,7 +42,7 @@
           <%= link_to "บทเรียน", lessons_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors" %>
           <%=link_to "การลงทะเบียน", enrollments_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors"%>
           <%if can? :show, @profile%>
-            <%=link_to "โปรไฟล์", profiles_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors"%>
+            <%=link_to "จัดการโปรไฟล์", profiles_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors"%>
           <% end %>
           <% if user_signed_in? %>
             <%= link_to "ข้อมูลส่วนตัว", profile_path(current_user.profile || "#"), class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors" if current_user.profile %>
