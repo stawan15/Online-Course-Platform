@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post :restore
     end
   end
+
   resources :lessons do
     member do
       post :restore
@@ -23,6 +24,38 @@ Rails.application.routes.draw do
   resources :profiles do
     member do
       post :restore
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :lessons, only: [ :index, :show, :create, :update, :destroy ]
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :quizzes, only: [ :index, :show, :create, :update, :destroy ]
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :enrollments, only: [ :index, :show, :create, :update, :destroy ]
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [ :index, :show, :create, :update, :destroy ]
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [ :index, :show, :create, :update, :destroy ]
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: [ :index, :show, :create, :update, :destroy ]
     end
   end
 

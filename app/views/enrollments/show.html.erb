@@ -1,1 +1,77 @@
-<h1>รายชื่อการลงทะเบียน (Enrollment)</h1>
+<div class="min-h-screen bg-slate-50 pb-16">
+  <div class="bg-emerald-600 pt-20 pb-24 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl transform translate-x-20 -translate-y-20"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-800/30 rounded-full blur-3xl transform -translate-x-20 translate-y-20"></div>
+    
+    <div class="max-w-3xl mx-auto relative z-10 text-center">
+      <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-white/20 text-emerald-50 uppercase tracking-widest backdrop-blur-md border border-white/20 mb-6 cursor-default">
+        รายละเอียดการลงทะเบียน
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-black text-white mb-2">Enrollment Status</h1>
+      <p class="text-emerald-100 text-lg">สถานะการเข้าเรียน</p>
+    </div>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 relative z-20 -mt-16">
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+      <div class="p-8 sm:p-12">
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 mb-12">
+          <!-- Student Side -->
+          <div class="text-center flex flex-col items-center">
+            <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-2xl font-bold uppercase mb-4 border-4 border-white shadow-md">
+              <%= (@enrollment.user&.name.presence || @enrollment.user&.email || "?")[0] %>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1"><%= @enrollment.user&.name.presence || "ไม่มีชื่อ" %></h3>
+            <p class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-md"><%= @enrollment.user&.email || "Unknown" %></p>
+          </div>
+
+          <!-- Connection (Icon) -->
+          <div class="flex flex-col items-center justify-center text-slate-300">
+            <div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 mb-2 shadow-inner">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Enrolled In</span>
+          </div>
+
+          <!-- Course Side -->
+          <div class="text-center flex flex-col items-center">
+            <div class="w-20 h-20 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 mb-4 border-4 border-white shadow-md transform rotate-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1 max-w-[150px] truncate" title="<%= @enrollment.course&.title %>">
+              <%= @enrollment.course&.title || "Unknown" %>
+            </h3>
+            <p class="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-md">Course</p>
+          </div>
+        </div>
+
+        <div class="bg-emerald-50 rounded-2xl p-6 border border-emerald-100 text-center mb-10">
+          <p class="text-sm text-emerald-800 font-medium">ลงทะเบียนเมื่อวันที่</p>
+          <p class="text-xl font-bold text-emerald-900 mt-1"><%= @enrollment.created_at.strftime("%d %b %Y, %H:%M น.") %></p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8 border-t border-slate-100 text-center">
+          <%= link_to enrollments_path, class: "w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-slate-500 hover:text-indigo-600 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            กลับไปรวมการลงทะเบียน
+          <% end %>
+          
+          <%= link_to edit_enrollment_path(@enrollment), class: "w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-bold rounded-xl transition-all" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            แก้ไขการลงทะเบียน
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

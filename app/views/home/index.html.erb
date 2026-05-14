@@ -1,11 +1,54 @@
-<h1>ยินดีต้อนรับสู่ Online Course Platform</h1>
-<p>ค้นหาคอร์สเรียนที่คุณสนใจได้ที่นี่</p>
+<div class="relative bg-slate-50 overflow-hidden min-h-[calc(100vh-4rem)] flex items-center">
+  <div class="absolute top-0 right-0 -mt-20 -mr-20 w-[40rem] h-[40rem] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-[30rem] h-[30rem] bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-<nav>
-  <ul>
-    <li><%= link_to 'คอร์สเรียนทั้งหมด', courses_path %></li>
-    <li><%= link_to 'บทเรียนทั้งหมด', lessons_path %></li>
-    <li><%= link_to 'แบบทดสอบทั้งหมด', quizzes_path %></li>
-    <li><%= link_to 'การลงทะเบียนทั้งหมด', enrollments_path %></li>
-  </ul>
-</nav>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 py-16 lg:py-24 w-full">
+    <div class="text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 text-sm font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 rounded-full">
+        แพลตฟอร์มการเรียนรู้ออนไลน์ที่ดีที่สุด
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-[1.15]">
+        ยกระดับทักษะของคุณ<br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">สำหรับอนาคต</span>
+      </h1>
+      
+      <p class="text-lg sm:text-xl text-slate-500 mb-10 leading-relaxed font-medium">
+        ค้นหาคอร์สเรียนที่คุณสนใจ พัฒนาศักยภาพของคุณด้วยบทเรียนที่ออกแบบมา
+        เพื่อการเรียนรู้ที่มีประสิทธิภาพและนำไปใช้ได้จริง
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <%= link_to courses_path, class: "w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-bold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all duration-200 active:scale-95 group" do %>
+          เริ่มต้นเรียนรู้เลย
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        <% end %>
+        
+        <%= link_to lessons_path, class: "w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 border-2 border-slate-200 text-base font-bold rounded-xl text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 active:scale-95" do %>
+          ดูบทเรียนทั้งหมด
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 border-t border-slate-200/60 pt-12">
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl font-black text-indigo-600 mb-1">50+</div>
+        <div class="text-sm font-bold text-slate-500">คอร์สเรียนคุณภาพ</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl font-black text-indigo-600 mb-1">10k+</div>
+        <div class="text-sm font-bold text-slate-500">ผู้ใช้งานทั่วไป</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl font-black text-indigo-600 mb-1">100+</div>
+        <div class="text-sm font-bold text-slate-500">บทเรียนใหม่ทุกเดือน</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl sm:text-4xl font-black text-indigo-600 mb-1">24/7</div>
+        <div class="text-sm font-bold text-slate-500">เข้าถึงได้ทุกที่ทุกเวลา</div>
+      </div>
+    </div>
+  </div>
+</div>

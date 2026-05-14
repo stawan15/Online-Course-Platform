@@ -1,10 +1,96 @@
-<h1>การลงทะเบียนทั้งหมด</h1>
-<ul>
-  <% @enrollments.each do |enrollment| %>
-    <li><%= link_to enrollment.user.email, enrollment_path(enrollment) %></li>
-    <li><%= link_to "แก้ไข", edit_enrollment_path(enrollment) %></li>
-    <li><%= link_to "ลบ", enrollment_path(enrollment), method: :delete %></li>
-  <% end %>
-</ul>
+<div class="min-h-screen bg-slate-50 py-8 px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+      <div>
+        <h1 class="text-2xl font-black text-slate-900 tracking-tight">การลงทะเบียนทั้งหมด</h1>
+        <p class="text-slate-500 text-sm">จัดการนักเรียนและคอร์สเรียน</p>
+      </div>
+      <%= link_to new_enrollment_path, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all duration-200 active:scale-95 group" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-1.5 group-hover:rotate-90 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        เพื่มการลงทะเบียน
+      <% end %>
+    </div>
 
-<%= link_to "สร้างการลงทะเบียนใหม่", new_enrollment_path %>
+    <% if @enrollments.any? %>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-12">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50/80 border-b border-slate-100 text-xs uppercase tracking-wider text-slate-500 font-bold">
+                <th class="px-6 py-4">ผู้ใช้งาน</th>
+                <th class="px-6 py-4">คอร์สเรียนที่ลงทะเบียน</th>
+                <th class="px-6 py-4">วันที่ลงทะเบียน</th>
+                <th class="px-6 py-4 text-right">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <% @enrollments.each do |enrollment| %>
+                <tr class="hover:bg-slate-50/50 transition-colors group">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold shadow-sm border border-emerald-200">
+                          <%= (enrollment.user&.name.presence || enrollment.user&.email || "?")[0].upcase %>
+                        </div>
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                          <%= enrollment.user&.name.presence || "ไม่มีชื่อ" %>
+                        </div>
+                        <div class="text-xs text-slate-500"><%= enrollment.user&.email || "Unknown Email" %></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                      <%= enrollment.course&.title || "Unknown Course" %>
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                    <%= enrollment.created_at.strftime("%d %b %Y, %H:%M") %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <div class="flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <%= link_to enrollment_path(enrollment), class: "p-1.5 bg-slate-100 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors", title: "ดูรายละเอียด" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      <% end %>
+                      <%= link_to edit_enrollment_path(enrollment), class: "p-1.5 bg-slate-100 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors", title: "แก้ไข" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      <% end %>
+                      <%= button_to enrollment_path(enrollment), method: :delete, data: { turbo_confirm: "ต้องการยกเลิกการลงทะเบียนนี้ใช่หรือไม่?" }, class: "p-1.5 bg-slate-100 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer", title: "ลบ" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <div class="text-center py-16 bg-white rounded-2xl border-2 border-dashed border-slate-200 mb-8">
+        <div class="bg-emerald-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="h-6 w-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-1">ยังไม่มีการลงทะเบียน</h3>
+        <p class="text-slate-500 text-sm mb-6">ยังไม่มีผู้ใช้งานคนไหนลงทะเบียนในคอร์สเรียน</p>
+        <%= link_to "เพิ่มการลงทะเบียนใหม่", new_enrollment_path, class: "text-indigo-600 text-sm font-bold hover:text-indigo-700 underline underline-offset-4" %>
+      </div>
+    <% end %>
+  </div>
+</div>
