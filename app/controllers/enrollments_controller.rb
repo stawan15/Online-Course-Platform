@@ -1,7 +1,7 @@
 class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [ :show, :edit, :update, :destroy ]
   skip_before_action :authenticate_user!, only: [ :index, :show ]
-  load_and_authorize_resource param_method: :enrollment_params
+  load_and_authorize_resource param_method: :enrollment_params, except: [ :restore ]
   before_action :set_paper_trail_whodunnit
 
   def index
@@ -45,6 +45,7 @@ class EnrollmentsController < ApplicationController
 
   def restore
     @enrollment = Enrollment.only_deleted.find(params[:id])
+    authorize! :restore, @enrollment
     @enrollment.restore
     redirect_to enrollments_path, notice: "กู้คืนการลงทะเบียนเรียบร้อยแล้ว"
   end

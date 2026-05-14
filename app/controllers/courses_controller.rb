@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [ :show, :edit, :update, :destroy ]
   skip_before_action :authenticate_user!, only: [ :index, :show ]
-  load_and_authorize_resource param_method: :course_params
+  load_and_authorize_resource param_method: :course_params, except: [ :restore ]
   before_action :set_paper_trail_whodunnit
 
   def index
@@ -45,6 +45,7 @@ class CoursesController < ApplicationController
 
   def restore
     @course = Course.only_deleted.find(params[:id])
+    authorize! :restore, @course
     @course.restore
     redirect_to courses_path, notice: "กู้คืนคอร์สเรียบร้อยแล้ว"
   end
