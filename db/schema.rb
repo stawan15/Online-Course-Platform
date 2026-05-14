@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_14_025015) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_14_033148) do
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "description"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
   create_table "enrollments", force: :cascade do |t|
+    t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["course_id"], name: "index_enrollments_on_course_id"
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
   create_table "homes", force: :cascade do |t|
@@ -28,18 +35,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_025015) do
   end
 
   create_table "lessons", force: :cascade do |t|
+    t.integer "course_id"
     t.datetime "created_at", null: false
+    t.text "description"
+    t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
   create_table "profiles", force: :cascade do |t|
+    t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "lesson_id"
+    t.string "question"
     t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_quizzes_on_lesson_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,8 +67,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_025015) do
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
+    t.string "role"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "courses", "users"
+  add_foreign_key "enrollments", "courses"
+  add_foreign_key "enrollments", "users"
+  add_foreign_key "lessons", "courses"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "quizzes", "lessons"
 end

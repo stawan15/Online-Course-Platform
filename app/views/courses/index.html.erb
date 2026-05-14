@@ -1,0 +1,10 @@
+<h1>คอร์สเรียนทั้งหมด</h1>
+<ul>
+  <% @courses.each do |course| %>
+    <li><%= link_to course.title, course_path(course) %></li>
+    <li><%= link_to "แก้ไข", edit_course_path(course) %></li>
+    <li><%= link_to "ลบ", course_path(course), method: :delete %></li>
+  <% end %>
+</ul>
+
+<%= link_to "สร้างคอร์สใหม่", new_course_path %>

@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  get "enrollments/index"
-  get "quizzes/index"
-  get "lessons/index"
-  get "lessons/show"
-  get "courses/index"
-  get "courses/show"
-  get "courses/new"
-  get "courses/edit"
-  get "home/index"
+  get "enrollment/index"
+  get "enrollment/show"
+  get "enrollment/new"
+  get "enrollment/edit"
+  # RESTful Resources
+  resources :courses
+  resources :lessons
+  resources :quizzes
+  resources :enrollments
+  resources :profiles
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -21,4 +23,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  root "home#index"
 end

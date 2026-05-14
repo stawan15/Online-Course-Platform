@@ -1,0 +1,10 @@
+<h1>การลงทะเบียนทั้งหมด</h1>
+<ul>
+  <% @enrollments.each do |enrollment| %>
+    <li><%= link_to enrollment.user.email, enrollment_path(enrollment) %></li>
+    <li><%= link_to "แก้ไข", edit_enrollment_path(enrollment) %></li>
+    <li><%= link_to "ลบ", enrollment_path(enrollment), method: :delete %></li>
+  <% end %>
+</ul>
+
+<%= link_to "สร้างการลงทะเบียนใหม่", new_enrollment_path %>

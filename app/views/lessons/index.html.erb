@@ -1,0 +1,10 @@
+<h1>บทเรียนทั้งหมด</h1>
+<ul>
+  <% @lessons.each do |lesson| %>
+    <li><%= link_to lesson.title, lesson_path(lesson) %></li>
+    <li><%= link_to "แก้ไข", edit_lesson_path(lesson) %></li>
+    <li><%= link_to "ลบ", lesson_path(lesson), method: :delete %></li>
+  <% end %>
+</ul>
+
+<%= link_to "สร้างบทเรียนใหม่", new_lesson_path %>

@@ -1,0 +1,10 @@
+<h1>โปรไฟล์ทั้งหมด</h1>
+<ul>
+  <% @profiles.each do |profile| %>
+    <li><%= link_to profile.user.email, profile_path(profile) %></li>
+    <li><%= link_to "แก้ไข", edit_profile_path(profile) %></li>
+    <li><%= link_to "ลบ", profile_path(profile), method: :delete %></li>
+  <% end %>
+</ul>
+
+<%= link_to "สร้างโปรไฟล์ใหม่", new_profile_path %>

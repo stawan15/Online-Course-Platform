@@ -1,3 +1,11 @@
 <h1>ยินดีต้อนรับสู่ Online Course Platform</h1>
 <p>ค้นหาคอร์สเรียนที่คุณสนใจได้ที่นี่</p>
-<%= link_to 'ดูคอร์สทั้งหมด', courses_path, class: 'btn-primary' %>
+
+<nav>
+  <ul>
+    <li><%= link_to 'คอร์สเรียนทั้งหมด', courses_path %></li>
+    <li><%= link_to 'บทเรียนทั้งหมด', lessons_path %></li>
+    <li><%= link_to 'แบบทดสอบทั้งหมด', quizzes_path %></li>
+    <li><%= link_to 'การลงทะเบียนทั้งหมด', enrollments_path %></li>
+  </ul>
+</nav>
