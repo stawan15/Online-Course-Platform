@@ -22,8 +22,8 @@ class LessonsController < ApplicationController
 
   def create
     @lesson = current_user.taught_lessons.build(lesson_params)
-    if @course.save
-      redirect_to @course, notice: "สร้างคอร์สเรียบร้อยแล้ว"
+    if @lesson.save
+      redirect_to @lesson, notice: "สร้างบทเรียนเรียบร้อยแล้ว"
     else
       render :new, status: :unprocessable_entity
     end
@@ -57,6 +57,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:title, :description)
+    params.require(:lesson).permit(:title, :description, :course_id)
   end
 end
