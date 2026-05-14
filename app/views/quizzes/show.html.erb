@@ -25,15 +25,30 @@
       </div>
       <% end %>
 
-      <%# #fill in the blank answer and save for next time%>
+      <%# ─── ช่องแสดงคำตอบที่บันทึกไว้ (แยกจาก form) ─── %>
       <% if current_user %>
         <% @submission = current_user.quiz_submissions.find_or_initialize_by(quiz: @quiz) %>
-        <%= form_with(model: @submission, url: submit_answer_quiz_path(@quiz), method: :patch, local: true) do |form| %>
+
+        <% if @submission.persisted? && @submission.answer.present? %>
+          <div class="w-full mb-6 text-left">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">คำตอบที่บันทึกไว้</p>
+            <div class="w-full px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-slate-700 font-medium leading-relaxed break-words"
+                 style="white-space: pre-wrap; overflow-wrap: anywhere; min-height: 2.75rem;"><%=h @submission.answer %></div>
+          </div>
+        <% end %>
+
+        <%# ─── Form ส่งคำตอบ (ใช้ Turbo ตามปกติ ไม่มี local: true) ─── %>
+        <%= form_with(model: @submission, url: submit_answer_quiz_path(@quiz), method: :patch) do |form| %>
           <div class="flex flex-col sm:flex-row items-center gap-3 p-4 bg-indigo-50 border border-indigo-100 rounded-xl w-full mb-8">
             <div class="flex-grow w-full">
-              <%= form.text_field :answer, value: @submission.answer, placeholder: "พิมพ์คำตอบของคุณที่นี่...", class: "w-full px-4 py-3 bg-white border border-indigo-200 text-slate-700 text-sm font-medium rounded-xl transition-all focus:ring-2 focus:ring-indigo-500 outline-none" %>
+              <%= form.text_area :answer,
+                    value: @submission.answer,
+                    placeholder: "พิมพ์คำตอบของคุณที่นี่...",
+                    rows: 3,
+                    class: "w-full px-4 py-3 bg-white border border-indigo-200 text-slate-700 text-sm font-medium rounded-xl transition-all focus:ring-2 focus:ring-indigo-500 outline-none resize-y" %>
             </div>
-            <%=form.submit "บันทึกคำตอบ", class: "w-full sm:w-auto flex-shrink-0 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-indigo-200 cursor-pointer" %>
+            <%= form.submit "บันทึกคำตอบ",
+                  class: "w-full sm:w-auto flex-shrink-0 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-indigo-200 cursor-pointer" %>
           </div>
         <% end %>
       <% end %>
@@ -62,3 +77,4 @@
     </div>
   </div>
 </div>
+

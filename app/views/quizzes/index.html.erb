@@ -38,9 +38,25 @@
               <h2 class="text-base font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2"><%= quiz.question %></h2>
             </div>
             
+            <%# ─── ช่องแสดงคำตอบ (แยกออกจากฟอร์มส่งคำตอบ) ─── %>
+            <% if current_user %>
+              <% submission = current_user.quiz_submissions.find_by(quiz: quiz) %>
+              <div class="px-6 pt-4 pb-3">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1.5">คำตอบของคุณ</p>
+                <% if submission&.answer.present? %>
+                  <div class="w-full min-h-[2.5rem] px-3.5 py-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-slate-700 font-medium leading-relaxed break-words"
+                       style="white-space: pre-wrap; overflow-wrap: anywhere;"><%=h submission.answer %></div>
+                <% else %>
+                  <div class="w-full min-h-[2.5rem] px-3.5 py-2.5 bg-slate-50 border border-dashed border-slate-200 rounded-xl text-sm text-slate-400 italic">
+                    ยังไม่ได้ตอบ
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
             <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-50 mt-auto">
               <%= link_to quiz_path(quiz), class: "flex items-center justify-between group/link text-indigo-600 text-sm font-bold" do %>
-                <span>ดูแบบทดสอบ</span>
+                <span><%= current_user ? "ตอบ / แก้ไขคำตอบ" : "ดูแบบทดสอบ" %></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="h-3.5 w-3.5 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
