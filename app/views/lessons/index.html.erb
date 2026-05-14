@@ -23,9 +23,16 @@
           <div class="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full hover:-translate-y-0.5">
             <div class="p-6 flex-grow">
               <div class="flex justify-between items-start mb-3">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-100 text-blue-700 uppercase tracking-wider border border-blue-200">
-                  Lesson
-                </span>
+                <div class="flex items-center gap-1.5">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-100 text-blue-700 uppercase tracking-wider border border-blue-200">
+                    Lesson
+                  </span>
+                  <% if lesson.youtube_url.present? %>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-red-50 text-red-600 uppercase tracking-wider border border-red-100 animate-pulse">
+                      🎬 มีวิดีโอ
+                    </span>
+                  <% end %>
+                </div>
                 <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <%if can? :edit, lesson %>
                     <%= link_to edit_lesson_path(lesson), class: "p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors" do %>

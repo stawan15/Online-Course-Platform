@@ -120,23 +120,28 @@ puts "📖 Creating Lessons..."
 c1_lessons = [
   {
     title: "Introduction to MVC Architecture",
-    description: "ทำความเข้าใจโมเดล MVC (Model-View-Controller) ที่ Rails ใช้เป็นแกนหลัก เรียนรู้วิธีการทำงานร่วมกันระหว่างทั้งสามส่วน"
+    description: "ทำความเข้าใจโมเดล MVC (Model-View-Controller) ที่ Rails ใช้เป็นแกนหลัก เรียนรู้วิธีการทำงานร่วมกันระหว่างทั้งสามส่วน",
+    youtube_url: "https://youtu.be/DUg2SWWK18I?si=raVTJVkjqrgGnJFc"
   },
   {
     title: "ActiveRecord & Database Migrations",
-    description: "การจัดการฐานข้อมูลเบื้องต้น การเขียน Migrations เพื่อสร้างตาราง และการใช้ ActiveRecord Query Interface"
+    description: "การจัดการฐานข้อมูลเบื้องต้น การเขียน Migrations เพื่อสร้างตาราง และการใช้ ActiveRecord Query Interface",
+    youtube_url: "https://youtu.be/Ksh5T_9Xf8U?si=raVTJVkjqrgGnJFc"
   },
   {
     title: "RESTful Routing & Controllers",
-    description: "เรียนรู้แนวคิด REST, การกำหนด routes ในไฟล์ routes.rb และการสร้าง Controller actions (CRUD) ที่ถูกต้อง"
+    description: "เรียนรู้แนวคิด REST, การกำหนด routes ในไฟล์ routes.rb และการสร้าง Controller actions (CRUD) ที่ถูกต้อง",
+    youtube_url: "https://www.youtube.com/watch?v=TAsu9pYvLqE"
   },
   {
     title: "Authentication with Devise",
-    description: "ติดตั้งและกำหนดค่า Devise Gem เพื่อจัดการระบบ Login / Signup ลงใน Rails Application"
+    description: "ติดตั้งและกำหนดค่า Devise Gem เพื่อจัดการระบบ Login / Signup ลงใน Rails Application",
+    youtube_url: "https://www.youtube.com/watch?v=y3_X7K9_sJ0"
   },
   {
     title: "Authorization with CanCanCan",
-    description: "ควบคุมสิทธิ์การเข้าถึงข้อมูลของผู้ใช้แต่ละ Role ด้วย CanCanCan Gem และ Ability Class"
+    description: "ควบคุมสิทธิ์การเข้าถึงข้อมูลของผู้ใช้แต่ละ Role ด้วย CanCanCan Gem และ Ability Class",
+    youtube_url: "https://www.youtube.com/watch?v=9_C8D_mNfIs"
   }
 ]
 
@@ -146,15 +151,18 @@ c1_lesson_records = c1_lessons.map { |l| course1.lessons.create!(l) }
 c2_lessons = [
   {
     title: "Utility Classes vs Semantic CSS",
-    description: "เปรียบเทียบข้อดีและข้อเสียของการเขียน CSS ทั้งสองแบบ เพื่อให้เห็นภาพว่าทำไม Tailwind CSS ถึงเป็นที่นิยม"
+    description: "เปรียบเทียบข้อดีและข้อเสียของการเขียน CSS ทั้งสองแบบ เพื่อให้เห็นภาพว่าทำไม Tailwind CSS ถึงเป็นที่นิยม",
+    youtube_url: "https://www.youtube.com/watch?v=mr15Xzb1Ook"
   },
   {
     title: "Flexbox & Grid Layout with Tailwind",
-    description: "ฝึกจัดวาง Layout ที่ซับซ้อนได้อย่างง่ายดายด้วย Flexbox และ CSS Grid ผ่าน Tailwind Utility Classes"
+    description: "ฝึกจัดวาง Layout ที่ซับซ้อนได้อย่างง่ายดายด้วย Flexbox และ CSS Grid ผ่าน Tailwind Utility Classes",
+    youtube_url: "https://www.youtube.com/watch?v=th7S8q-801Q"
   },
   {
     title: "Responsive Design & Breakpoints",
-    description: "ออกแบบเว็บให้รองรับหน้าจอทุกขนาดตั้งแต่ Mobile ไปจนถึง Desktop ด้วย Breakpoint Prefixes ของ Tailwind"
+    description: "ออกแบบเว็บให้รองรับหน้าจอทุกขนาดตั้งแต่ Mobile ไปจนถึง Desktop ด้วย Breakpoint Prefixes ของ Tailwind",
+    youtube_url: "https://www.youtube.com/watch?v=W-A96XF0mKk"
   },
   {
     title: "Dark Mode & Custom Theming",

@@ -17,9 +17,85 @@
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 -mt-8 pb-16">
     <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-slate-200/50 border border-slate-100 mt-10">
-      <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed mb-12">
+      <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed mb-8">
         <%= simple_format @lesson.description %>
       </div>
+
+      <% if @lesson.youtube_url.present? && @lesson.youtube_embed_id.present? %>
+        <div class="mb-12">
+          <button id="open-video-btn" class="inline-flex items-center justify-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl shadow-lg shadow-red-100 transition-all duration-200 active:scale-95 group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.615 3.184c-1.187-.319-3.468-.507-7.615-.507-4.148 0-6.429.188-7.615.507-1.107.299-2.284 1.527-2.385 3.284-.102 1.743-.102 5.042-.102 5.042s0 3.299.102 5.042c.101 1.757 1.278 2.985 2.385 3.284 1.186.319 3.467.507 7.615.507 4.147 0 6.428-.188 7.615-.507 1.107-.299 2.228-1.527 2.385-3.284.157-1.743.157-5.042.157-5.042s0-3.299-.157-5.042c-.157-1.757-1.278-2.985-2.385-3.284zm-10.954 12.934v-8.236l7.917 4.118-7.917 4.118z"/>
+            </svg>
+            ดูวิดีโอประกอบบทเรียน
+          </button>
+        </div>
+
+        <!-- Video Modal Overlay -->
+        <div id="video-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-slate-900/90 backdrop-blur-sm transition-all duration-300 opacity-0">
+          <div class="relative w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl scale-90 transition-transform duration-300" id="modal-content">
+            <!-- Close Button -->
+            <button id="close-video-btn" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-md transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div id="video-container" class="w-full h-full">
+              <!-- Iframe will be injected here via JS -->
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function() {
+            const setupModal = () => {
+              const modal = document.getElementById('video-modal');
+              const content = document.getElementById('modal-content');
+              const container = document.getElementById('video-container');
+              const openBtn = document.getElementById('open-video-btn');
+              const closeBtn = document.getElementById('close-video-btn');
+              
+              if (!modal || !openBtn) return;
+
+              const videoId = "<%= @lesson.youtube_embed_id %>";
+              const iframeHtml = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+
+              const closeModal = () => {
+                modal.classList.remove('opacity-100');
+                content.classList.remove('scale-100');
+                content.classList.add('scale-90');
+                setTimeout(() => {
+                  modal.classList.add('hidden');
+                  modal.classList.remove('flex');
+                  container.innerHTML = ''; 
+                }, 300);
+                document.body.style.overflow = '';
+              };
+
+              openBtn.onclick = () => {
+                container.innerHTML = iframeHtml;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                  modal.classList.add('opacity-100');
+                  content.classList.remove('scale-90');
+                  content.classList.add('scale-100');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+              };
+
+              closeBtn.onclick = closeModal;
+              modal.onclick = (e) => {
+                if (e.target === modal) closeModal();
+              };
+            };
+
+            document.addEventListener('turbo:load', setupModal);
+            // Fallback for direct page loads if turbo:load already fired
+            if (document.readyState === 'complete') setupModal();
+          })();
+        </script>
+      <% end %>
       
       <%# --- Quizzes Section --- %>
       <div class="mb-12">

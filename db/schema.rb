@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_14_081735) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_14_150709) do
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_081735) do
     t.text "description"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.string "youtube_url"
     t.index ["course_id"], name: "index_lessons_on_course_id"
     t.index ["deleted_at"], name: "index_lessons_on_deleted_at"
   end
