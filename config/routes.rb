@@ -1,14 +1,30 @@
 Rails.application.routes.draw do
-  get "enrollment/index"
-  get "enrollment/show"
-  get "enrollment/new"
-  get "enrollment/edit"
   # RESTful Resources
-  resources :courses
-  resources :lessons
-  resources :quizzes
-  resources :enrollments
-  resources :profiles
+  resources :courses do
+    member do
+      get :restore
+    end
+  end
+  resources :lessons do
+    member do
+      get :restore
+    end
+  end
+  resources :quizzes do
+    member do
+      get :restore
+    end
+  end
+  resources :enrollments do
+    member do
+      get :restore
+    end
+  end
+  resources :profiles do
+    member do
+      get :restore
+    end
+  end
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

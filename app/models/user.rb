@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  rolify
+  acts_as_paranoid
+  has_paper_trail
+
   has_one :profile
 
   has_many :enrollments

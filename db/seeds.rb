@@ -16,3 +16,9 @@ lesson = course.lessons.find_or_create_by!(title: 'Introduction to MVC')
 
 # สร้าง Quiz ให้ Lesson
 lesson.quizzes.find_or_create_by!(question: 'MVC ย่อมาจากอะไร?')
+
+admin = User.find_or_create_by!(email: "admin@example.com") do |u|
+  u.password = "password123"
+  u.password_confirmation = "password123"
+end
+admin.add_role :admin unless admin.has_role?(:admin)

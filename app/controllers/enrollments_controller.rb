@@ -1,6 +1,12 @@
 class EnrollmentsController < ApplicationController
+  before_action :set_enrollment, only: [ :show, :edit, :update, :destroy ]
+  skip_before_action :authenticate_user!, only: [ :index, :show ]
+  load_and_authorize_resource param_method: :enrollment_params
+  before_action :set_paper_trail_whodunnit
+
   def index
     @enrollments = Enrollment.all
+    @deleted_enrollments = Enrollment.only_deleted
   end
 
   def show
@@ -10,7 +16,6 @@ class EnrollmentsController < ApplicationController
   def new
     @enrollment = Enrollment.new
   end
-
   def edit
     @enrollment = Enrollment.find(params[:id])
   end
@@ -20,7 +25,7 @@ class EnrollmentsController < ApplicationController
     if @enrollment.save
       redirect_to @enrollment
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,12 +39,21 @@ class EnrollmentsController < ApplicationController
   end
 
   def destroy
-    @enrollment = Enrollment.find(params[:id])
     @enrollment.destroy
-    redirect_to enrollments_path
+    redirect_to enrollments_path, notice: "ย้ายการลงทะเบียนไปที่ถังขยะเรียบร้อยแล้ว"
+  end
+
+  def restore
+    @enrollment = Enrollment.only_deleted.find(params[:id])
+    @enrollment.restore
+    redirect_to enrollments_path, notice: "กู้คืนการลงทะเบียนเรียบร้อยแล้ว"
   end
 
   private
+
+  def set_enrollment
+    @enrollment = Enrollment.find(params[:id])
+  end
 
   def enrollment_params
     params.require(:enrollment).permit(:user_id, :course_id)

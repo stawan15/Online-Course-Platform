@@ -1,0 +1,81 @@
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-xl">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      ตั้งค่าบัญชีผู้ใช้
+    </h2>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div>
+          <%= f.label :email, "อีเมล", class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="rounded-md bg-yellow-50 p-4">
+            <div class="flex">
+              <div class="ml-3">
+                <p class="text-sm font-medium text-yellow-800">
+                  กำลังรอการยืนยันอีเมลใหม่: <%= resource.unconfirmed_email %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="border-t border-gray-200 pt-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">เปลี่ยนรหัสผ่าน</h3>
+          <p class="text-xs text-gray-500 mb-4">(ปล่อยว่างไว้หากไม่ต้องการเปลี่ยน)</p>
+          
+          <div class="space-y-4">
+            <div>
+              <%= f.label :password, "รหัสผ่านใหม่", class: "block text-sm font-medium text-gray-700" %>
+              <div class="mt-1">
+                <%= f.password_field :password, autocomplete: "new-password", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+              </div>
+              <% if @minimum_password_length %>
+                <p class="mt-1 text-xs text-gray-500">ขั้นต่ำ <%= @minimum_password_length %> ตัวอักษร</p>
+              <% end %>
+            </div>
+
+            <div>
+              <%= f.label :password_confirmation, "ยืนยันรหัสผ่านใหม่", class: "block text-sm font-medium text-gray-700" %>
+              <div class="mt-1">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-6">
+          <%= f.label :current_password, "รหัสผ่านปัจจุบัน", class: "block text-sm font-medium text-gray-700" %>
+          <p class="text-xs text-gray-500 mb-2">(ต้องระบุเพื่อยืนยันการเปลี่ยนแปลง)</p>
+          <div class="mt-1">
+            <%= f.password_field :current_password, autocomplete: "current-password", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-4">
+          <%= f.submit "บันทึกการเปลี่ยนแปลง", class: "flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer" %>
+          <%= link_to "ย้อนกลับ", :back, class: "text-sm font-medium text-gray-600 hover:text-gray-500" %>
+        </div>
+      <% end %>
+
+      <div class="mt-10 pt-10 border-t border-gray-200 text-center">
+        <h3 class="text-sm font-medium text-gray-900 mb-2">โซนอันตราย</h3>
+        <div>
+          <%= button_to "ยกเลิกบัญชีผู้ใช้งาน", registration_path(resource_name), 
+              data: { confirm: "คุณแน่ใจหรือไม่?", turbo_confirm: "คุณแน่ใจหรือไม่?" }, 
+              method: :delete, 
+              class: "text-xs font-semibold text-red-600 hover:text-red-500 transition cursor-pointer" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

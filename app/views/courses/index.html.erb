@@ -3,8 +3,18 @@
   <% @courses.each do |course| %>
     <li><%= link_to course.title, course_path(course) %></li>
     <li><%= link_to "แก้ไข", edit_course_path(course) %></li>
-    <li><%= link_to "ลบ", course_path(course), method: :delete %></li>
+    <%if can? :delete, course %>
+      <%= button_to "ลบ", course_path(course), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg transition cursor-pointer" %>
+    <% end %>
   <% end %>
 </ul>
 
 <%= link_to "สร้างคอร์สใหม่", new_course_path %>
+
+<h1>คอร์สที่ถูกลบ (Trash)</h1>
+<ul>
+  <% @deleted_courses.each do |course| %>
+    <li><%= link_to course.title, course_path(course) %></li>
+    <li><%= link_to "กู้คืน", restore_course_path(course), method: :post, class: "text-green-600 hover:text-green-800" %></li>
+  <% end %>
+</ul>   

@@ -24,6 +24,33 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="navbar">
+      <div class="nav-container">
+        <%= link_to root_path, class: "brand" do %>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          OCP
+        <% end %>
+
+        <nav class="nav-links">
+          <%= link_to "คอร์สทั้งหมด", courses_path, class: "nav-link" %>
+          <%= link_to "บทเรียน", lessons_path, class: "nav-link" %>
+          <% if user_signed_in? %>
+            <%= link_to "ข้อมูลส่วนตัว", profile_path(current_user.profile || "#"), class: "nav-link" if current_user.profile %>
+            <%= button_to "ออกจากระบบ", destroy_user_session_path, method: :delete, class: "btn btn-outline" %>
+          <% else %>
+            <%= link_to "เข้าสู่ระบบ", new_user_session_path, class: "nav-link" %>
+            <%= link_to "สมัครสมาชิก", new_user_registration_path, class: "btn btn-primary" %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>
