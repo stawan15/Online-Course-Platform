@@ -1,60 +1,75 @@
 module Api
   module V1
     class CoursesController < BaseController
-      before_action :set_course, only: [ :show, :update, :destroy, :restore, :log_history ]
-
+      # before_action :authenticate_user!
+      before_action :set_course, only: [ :show, :update, :destroy, :log, :restore ]
       def index
         @courses = Course.all
-        render json: @courses
+        render json: @courses, status: :ok
       end
 
       def show
-        render json: @course
+        render json: @course, status: :ok
       end
 
       def create
         @course = Course.new(course_params)
         if @course.save
-          render json: @course, status: :created
+          render json: @course,
+          include: { lessons: { include: :quizzes } },
+          status: :created
         else
-          render json: @course.errors, status: :unprocessable_entity
+          render json: { error: @course.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       def update
         if @course.update(course_params)
-          render json: @course
+          render json: { message: "Updated successfully" },
+          status: :ok
         else
-          render json: @course.errors, status: :unprocessable_entity
+          render json: { error: @course.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       def destroy
-        @course.destroy
-        render json: { message: "Course deleted" }
+        if @course.destroy
+          render json: { message: "Course deleted successfully" }, status: :ok
+        else
+          render json: { errors: @course.errors.full_messages }, status: :unprocessable_entity
+        end
       end
 
-      def log_history
-        @course.versions
-        render json: @course.versions
+      def log
+        course_versions = {
+          course: @course,
+          "log": @course.versions }
+        render json: course_versions, status: :ok
       end
 
+      def deleted_courses
+        @deleted_courses = Course.only_deleted
+        render json: { deleted_courses: @deleted_courses }, status: :ok
+      end
 
       def restore
-        @course.restore!
-        render json: { message: "Course restored" }
+        if @course.restore
+          render json: { message: "Course restored successfully" }, status: :ok
+        else
+          render json: { errors: @course.errors.full_messages }, status: :unprocessable_entity
+        end
       end
 
       private
 
       def set_course
-        @course = Course.find(params[:id])
+        @course = Course.with_deleted.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         render json: { error: "Course not found" }, status: :not_found
       end
 
       def course_params
-        params.require(:course).permit(:title, :description)
+        params.require(:course).permit(:title, :description, :user_id)
       end
     end
   end

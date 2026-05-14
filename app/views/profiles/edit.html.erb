@@ -21,13 +21,14 @@
           </svg>
           ดูรายละเอียด
         <% end %>
-
-        <%= link_to profiles_path, class: "inline-flex items-center text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          กลับไปรวมโปรไฟล์
-        <% end %>
+        <%if user_signed_in? && current_user.has_role?(:admin) %>
+          <%= link_to profiles_path, class: "inline-flex items-center text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            กลับไปรวมโปรไฟล์
+          <% end %>
+        <%end%>
       </div>
     </div>
   </div>

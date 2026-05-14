@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  # RESTful Resources
   resources :courses do
     member do
+      get :log
       post :restore
     end
   end
-
   resources :lessons do
     member do
       post :restore
@@ -27,38 +26,78 @@ Rails.application.routes.draw do
       post :restore
     end
   end
-
-  namespace :api do
-    namespace :v1 do
-      resources :lessons, only: [ :index, :show, :create, :update, :destroy ]
+  resources :users do
+    member do
+      post :restore
     end
   end
 
   namespace :api do
     namespace :v1 do
-      resources :quizzes, only: [ :index, :show, :create, :update, :destroy ]
+      resources :lessons, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :deleted_lessons
+        end
+
+       member do
+        get :log
+        post :restore
+       end
+      end
+      resources :quizzes, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :deleted_quizzes
+        end
+
+       member do
+        get :log
+        post :restore
+       end
+      end
+      resources :enrollments, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :deleted_enrollments
+        end
+
+       member do
+        get :log
+        post :restore
+       end
+      end
+      resources :profiles, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :deleted_profiles
+        end
+
+       member do
+        get :log
+        post :restore
+       end
+      end
+      resources :users, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :deleted_users
+        end
+
+       member do
+        get :log
+        post :restore
+       end
+      end
+      resources :courses, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :deleted_courses
+        end
+
+       member do
+        get :log
+        post :restore
+       end
+      end
     end
   end
-  namespace :api do
-    namespace :v1 do
-      resources :enrollments, only: [ :index, :show, :create, :update, :destroy ]
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      resources :profiles, only: [ :index, :show, :create, :update, :destroy ]
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      resources :users, only: [ :index, :show, :create, :update, :destroy ]
-    end
-  end
-  namespace :api do
-    namespace :v1 do
-      resources :courses, only: [ :index, :show, :create, :update, :destroy ]
-    end
-  end
+
+
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

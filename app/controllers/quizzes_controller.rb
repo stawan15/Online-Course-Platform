@@ -62,9 +62,9 @@ class QuizzesController < ApplicationController
     @submission.answer = submission_params[:answer]
 
     if @submission.save
-      redirect_to @quiz, notice: "บันทึกคำตอบเรียบร้อยแล้ว"
+      redirect_to @quiz, notice: "บันทึกคำตอบเรียบร้อยแล้ว", status: :see_other
     else
-      redirect_to @quiz, alert: "เกิดข้อผิดพลาด ไม่สามารถบันทึกคำตอบได้"
+      redirect_to @quiz, alert: "เกิดข้อผิดพลาด ไม่สามารถบันทึกคำตอบได้", status: :see_other
     end
   end
 
