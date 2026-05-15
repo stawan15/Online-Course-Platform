@@ -3,6 +3,14 @@
 ระบบจัดการคอร์สเรียนออนไลน์แบบครบวงจร พัฒนาด้วย Ruby on Rails 8.1.3 
 
 ![Home Page Screen](public/screenshots/home_page.png)
+<img width="1919" height="964" alt="image" src="https://github.com/user-attachments/assets/7e97774f-181c-4fa2-9f6e-b54346ef357e" />
+<img width="1919" height="964" alt="image" src="https://github.com/user-attachments/assets/524eb3c0-735f-4eac-b6d9-c29db34ba4dc" />
+<img width="1919" height="964" alt="image" src="https://github.com/user-attachments/assets/681ef6c7-7236-421f-bcce-73d54d15c99a" />
+<img width="1919" height="964" alt="image" src="https://github.com/user-attachments/assets/662a900e-c8a1-4ae0-a9ce-71b72a582ae8" />
+<img width="1919" height="964" alt="image" src="https://github.com/user-attachments/assets/2343632d-f281-46ab-81ef-14eb0dd7b864" />
+
+
+
 
 ## 🌟 ฟีเจอร์หลัก (Key Features)
 
