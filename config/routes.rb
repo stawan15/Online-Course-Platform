@@ -1,100 +1,118 @@
 Rails.application.routes.draw do
+  # จัดการเส้นทางสำหรับการตรวจสอบตัวตน (Login, Register ฯลฯ)
   devise_for :users
 
+  # เส้นทางสำหรับจัดการคอร์ส
   resources :courses do
     member do
       get :log
-      post :restore
+      post :restore # สำหรับกู้คืนคอร์สที่ถูกลบ
     end
   end
+
+  # เส้นทางสำหรับจัดการบทเรียน
   resources :lessons do
     member do
       post :restore
     end
   end
+
+  # เส้นทางสำหรับจัดการควิซ
   resources :quizzes do
     member do
       post :restore
-      patch :submit_answer
+      patch :submit_answer # สำหรับส่งคำตอบควิซ
     end
   end
+
+  # เส้นทางสำหรับจัดการการลงทะเบียน
   resources :enrollments do
     member do
       post :restore
     end
   end
+
+  # เส้นทางสำหรับจัดการโปรไฟล์
   resources :profiles do
     member do
       post :restore
     end
   end
+
+  # เส้นทางสำหรับจัดการผู้ใช้งาน
   resources :users do
     member do
       post :restore
     end
   end
 
+  # เส้นทางสำหรับ API
   namespace :api do
     namespace :v1 do
+      # API สำหรับบทเรียน
       resources :lessons, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :deleted_lessons
         end
-
-       member do
-        get :log
-        post :restore
-       end
+        member do
+          get :log
+          post :restore
+        end
       end
+
+      # API สำหรับควิซ
       resources :quizzes, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :deleted_quizzes
         end
-
-       member do
-        get :log
-        post :restore
-       end
+        member do
+          get :log
+          post :restore
+        end
       end
+
+      # API สำหรับการลงทะเบียน
       resources :enrollments, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :deleted_enrollments
         end
-
-       member do
-        get :log
-        post :restore
-       end
+        member do
+          get :log
+          post :restore
+        end
       end
+
+      # API สำหรับโปรไฟล์
       resources :profiles, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :deleted_profiles
         end
-
-       member do
-        get :log
-        post :restore
-       end
+        member do
+          get :log
+          post :restore
+        end
       end
+
+      # API สำหรับผู้ใช้งาน
       resources :users, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :deleted_users
         end
-
-       member do
-        get :log
-        post :restore
-       end
+        member do
+          get :log
+          post :restore
+        end
       end
+
+      # API สำหรับคอร์ส
       resources :courses, only: [ :index, :show, :create, :update, :destroy ] do
         collection do
           get :deleted_courses
         end
-
-       member do
-        get :log
-        post :restore
-       end
+        member do
+          get :log
+          post :restore
+        end
       end
     end
   end

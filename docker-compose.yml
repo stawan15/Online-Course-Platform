@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ocp-web:latest
+    container_name: ocp_web
+    ports:
+      - "80:80"
+    environment:
+      # ดึงค่า RAILS_MASTER_KEY จากไฟล์ .env หรือ environment variable ของเครื่อง
+      - RAILS_MASTER_KEY=ff69a1ec4eb95c9d074b0d035434b6ed
+      - RAILS_ENV=production
+    volumes:
+      # เก็บข้อมูลฐานข้อมูล SQLite ให้อยู่คงทน (Persistence)
+      - ./storage:/rails/storage
+    restart: unless-stopped
+
+# กำหนด Volume สำหรับเก็บข้อมูลระยะยาว
+volumes:
+  storage:
