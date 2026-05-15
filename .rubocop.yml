@@ -1,8 +1,47 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+# .rubocop.yml
+# แหล่งรวมกฎมาตรฐาน Omakase จากทีม Rails Core
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+# ==========================================
+# ปรับแต่งกฎเพิ่มเติม (House Style Overrides)
+# ==========================================
+
+AllCops:
+  NewCops: enable
+  # ข้ามการตรวจไฟล์ที่สร้างอัตโนมัติ หรือไฟล์ Third-party
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'config/environments/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+
+# ปิดกฎความยาวบรรทัด (จะได้ไม่ต้องคอยเคาะขึ้นบรรทัดใหม่บ่อยๆ)
+Layout/LineLength:
+  Enabled: false
+
+# ปิดกฎจำกัดความยาวของ Method (ยอมให้เขียน Logic ใน Controller/Model ได้ยาวขึ้น)
+Metrics/MethodLength:
+  Enabled: false
+
+# ปิดกฎจำกัดความยาวของ Block (มีประโยชน์เวลาเขียนไฟล์ RSpec หรือ Block ยาวๆ)
+Metrics/BlockLength:
+  Enabled: false
+
+# ปิดกฎจำกัดความยาวของ Class
+Metrics/ClassLength:
+  Enabled: false
+
+# ปิดกฎบังคับให้ใส่ Comment อธิบายหัว Class (Documentation)
+Style/Documentation:
+  Enabled: false
+
+# ยอมรับการใช้ทั้ง Single Quotes และ Double Quotes (ไม่บังคับ)
+Style/StringLiterals:
+  Enabled: false
+
+# ปล่อยให้สไตล์การเช็คค่า nil ยืดหยุ่นได้ตามความเคยชิน
+Style/NilLambda:
+  Enabled: false

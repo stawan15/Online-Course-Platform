@@ -76,3 +76,5 @@ gem "paper_trail", "~> 17.0"
 gem "rolify", "~> 6.0"
 
 gem "cancancan", "~> 3.6"
+
+gem "rubocop", "~> 1.86"
