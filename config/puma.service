@@ -1,0 +1,22 @@
+[Unit]
+Description=Puma HTTP Server for my-course
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/srv/www/apps/my-course/current
+Environment=RAILS_ENV=production
+Environment=PUMA_BIND=unix:///srv/www/apps/my-course/shared/tmp/sockets/my-course-puma.sock
+Environment=PIDFILE=/srv/www/apps/my-course/shared/tmp/pids/puma.pid
+Environment=PUMA_STATE=/srv/www/apps/my-course/shared/tmp/pids/puma.state
+Environment=RAILS_MAX_THREADS=5
+ExecStart=/usr/bin/env bundle exec puma -C /srv/www/apps/my-course/current/config/puma.rb
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=puma_my_course
+
+[Install]
+WantedBy=multi-user.target

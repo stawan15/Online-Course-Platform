@@ -53,7 +53,7 @@ Thumbs.db
 *.swp
 
 # IDE and Editor directories
-/.vscode/
+/.vscode/b
 /.idea/
 *.sublime-project
 *.sublime-workspace

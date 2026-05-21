@@ -57,8 +57,6 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem "capistrano", "~> 3.17", require: false
-  gem "capistrano-rails", "~> 1.3", require: false
 end
 
 group :test do
@@ -82,3 +80,11 @@ gem "cancancan", "~> 3.6"
 gem "rubocop", "~> 1.86"
 
 
+# Gemfile
+group :development do
+  gem 'capistrano', '~> 3.18'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'  
+  gem 'capistrano-puma', '~> 0.2.3', require: false
+end
