@@ -57,6 +57,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "capistrano", "~> 3.17", require: false
+  gem "capistrano-rails", "~> 1.3", require: false
 end
 
 group :test do
@@ -78,3 +80,5 @@ gem "rolify", "~> 6.0"
 gem "cancancan", "~> 3.6"
 
 gem "rubocop", "~> 1.86"
+
+
