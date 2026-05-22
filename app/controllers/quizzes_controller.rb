@@ -57,7 +57,6 @@ class QuizzesController < ApplicationController
 
     @submission = current_user.quiz_submissions.find_or_initialize_by(quiz: @quiz)
 
-    # Require params for quiz_submission and permit answer
     submission_params = params.require(:quiz_submission).permit(:answer)
     @submission.answer = submission_params[:answer]
 

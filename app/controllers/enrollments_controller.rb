@@ -17,7 +17,6 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.new
   end
   def edit
-    # edit function
     @enrollment = Enrollment.find(params[:id])
     @users = User.all
     @courses = Course.all
@@ -33,7 +32,6 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
-    # update function
     @enrollment = Enrollment.find(params[:id])
     if @enrollment.update(enrollment_params)
       redirect_to @enrollment

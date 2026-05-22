@@ -31,14 +31,11 @@ class ProfilesController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      # แอดมินสามารถอัปเดตบทบาทของ User ได้ผ่าน Profile Form
       if current_user.has_role?(:admin) && params[:profile][:role].present?
         role = Role.find_by(id: params[:profile][:role])
         if role
-          # รีเซ็ตบทบาทเดิม แล้วใส่บทบาทใหม่ (Rolify)
           @profile.user.roles.destroy_all
           @profile.user.add_role(role.name)
-          # อัปเดตคอลัมน์ role ด้วยเผื่อดึงไปใช้งาน
           @profile.user.update(role: role.name)
         end
       end
