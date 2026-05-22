@@ -82,7 +82,7 @@ gem "rubocop", "~> 1.86"
 
 # Gemfile
 group :development do
-  gem 'capistrano', '~> 3.18'
+  gem 'capistrano', '~> 3.20.0'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rbenv'  

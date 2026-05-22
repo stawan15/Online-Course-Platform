@@ -54,3 +54,7 @@ Session.vim
 # --- Project Specific Transient Files ---
 /public/screenshots/
 /public/system/
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+

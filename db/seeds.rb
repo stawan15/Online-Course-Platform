@@ -2,7 +2,7 @@
 # seeds.rb — Online Course Platform Demo Data
 # =============================================================
 
-puts "🧹 Cleaning up database..."
+puts "Cleaning up database..."
 QuizSubmission.delete_all
 Enrollment.with_deleted.delete_all
 Quiz.with_deleted.delete_all
@@ -15,7 +15,7 @@ User.with_deleted.delete_all
 # =============================================================
 # USERS — Admin
 # =============================================================
-puts "👑 Creating Admin..."
+puts "Creating Admin..."
 admin = User.create!(
   email: "admin@example.com",
   password: "password123",
@@ -29,7 +29,7 @@ admin.create_profile!(bio: "ผู้ดูแลระบบสูงสุด 
 # =============================================================
 # USERS — Instructors
 # =============================================================
-puts "👨‍🏫 Creating Instructors..."
+puts "Creating Instructors..."
 teacher1 = User.create!(
   email: "teacher@example.com",
   password: "password123",
@@ -53,7 +53,7 @@ teacher2.create_profile!(bio: "ผู้เชี่ยวชาญด้าน 
 # =============================================================
 # USERS — Students
 # =============================================================
-puts "🎓 Creating Students..."
+puts "Creating Students..."
 students_data = [
   { email: "student@example.com",  name: "Nong Nat",   bio: "นักเรียนสาย IT ที่มีความกระตือรือร้นและตั้งใจเรียน" },
   { email: "student2@example.com", name: "Nong Ploy",  bio: "สนใจทางด้าน Frontend Development" },
@@ -79,7 +79,7 @@ end
 # =============================================================
 # COURSES
 # =============================================================
-puts "📚 Creating Courses..."
+puts "Creating Courses..."
 
 course1 = Course.create!(
   title: "Ruby on Rails Bootcamp 2026",
@@ -114,7 +114,7 @@ course5 = Course.create!(
 # =============================================================
 # LESSONS
 # =============================================================
-puts "📖 Creating Lessons..."
+puts "Creating Lessons..."
 
 # --- Course 1: Ruby on Rails ---
 c1_lessons = [
@@ -221,7 +221,7 @@ c5_lesson_records = c5_lessons.map { |l| course5.lessons.create!(l) }
 # =============================================================
 # QUIZZES
 # =============================================================
-puts "❓ Creating Quizzes..."
+puts "Creating Quizzes..."
 
 # Course 1 Quizzes
 quiz_data = [
@@ -266,7 +266,7 @@ end
 # =============================================================
 # ENROLLMENTS
 # =============================================================
-puts "📋 Creating Enrollments..."
+puts "Creating Enrollments..."
 
 # student[0] = Nong Nat — ลงทะเบียนคอร์ส 1, 2
 Enrollment.create!(user: students[0], course: course1)
@@ -295,7 +295,7 @@ Enrollment.create!(user: students[5], course: course5)
 # =============================================================
 # QUIZ SUBMISSIONS (ตัวอย่างคำตอบ)
 # =============================================================
-puts "✍️  Creating Quiz Submissions..."
+puts "Creating Quiz Submissions..."
 
 QuizSubmission.create!(user: students[0], quiz: quizzes[0],
   answer: "M = Model ดูแลข้อมูลและ Business Logic\nV = View แสดงผล UI ให้ผู้ใช้\nC = Controller รับ Request จาก User แล้วประสาน Model กับ View")
@@ -316,15 +316,15 @@ QuizSubmission.create!(user: students[5], quiz: quizzes[21],
   answer: "git commit บันทึก snapshot ของโค้ดลง local repository\ngit push ส่ง commit ขึ้น remote repository บน GitHub")
 
 puts ""
-puts "✅ Seed Data loaded successfully!"
+puts "Seed Data loaded successfully!"
 puts "──────────────────────────────────"
-puts "  👑 Admin:       1 คน  (admin@example.com)"
-puts "  👨‍🏫 Instructors: 2 คน  (teacher@/teacher2@)"
-puts "  🎓 Students:    6 คน  (student~student6@)"
-puts "  📚 Courses:     5 คอร์ส"
-puts "  📖 Lessons:    #{Lesson.count} บทเรียน"
-puts "  ❓ Quizzes:    #{Quiz.count} ข้อ"
-puts "  📋 Enrollment: #{Enrollment.count} รายการ"
-puts "  ✍️  Submissions: #{QuizSubmission.count} รายการ"
-puts "  🔑 Password สำหรับทุก account: password123"
+puts "Admin:       1 คน  (admin@example.com)"
+puts "Instructors: 2 คน  (teacher@/teacher2@)"
+puts "Students:    6 คน  (student~student6@)"
+puts "Courses:     5 คอร์ส"
+puts "Lessons:    #{Lesson.count} บทเรียน"
+puts "Quizzes:    #{Quiz.count} ข้อ"
+puts "Enrollment: #{Enrollment.count} รายการ"
+puts "Submissions: #{QuizSubmission.count} รายการ"
+puts "Password สำหรับทุก account: password123"
 puts "──────────────────────────────────"

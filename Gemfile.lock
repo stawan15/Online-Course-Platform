@@ -402,7 +402,7 @@ DEPENDENCIES
   brakeman
   bundler-audit
   cancancan (~> 3.6)
-  capistrano (~> 3.18)
+  capistrano (~> 3.20.0)
   capistrano-bundler
   capistrano-puma (~> 0.2.3)
   capistrano-rails
